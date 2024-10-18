@@ -78,6 +78,10 @@ enum SNSType {
   sms(
     title: 'SMS',
     url: 'sms:?body=https%3A%2F%2Fwww.google.com',
+  ),
+  mail(
+    title: 'Mail',
+    url: 'mailto:?body=https%3A%2F%2Fwww.google.com',
   );
 
   final String title;
@@ -91,6 +95,12 @@ enum SNSType {
 
 class _MyHomePageState extends State<MyHomePage> {
   void _share({required SNSType type}) async {
+    if (type == SNSType.facebook) {
+      await launchUrl(Uri.parse(type.url),
+          mode: LaunchMode.externalApplication);
+      return;
+    }
+
     final url = Uri.parse(type.url);
     final canOpen = await canLaunchUrl(url);
     if (!canOpen) {
