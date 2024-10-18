@@ -161,7 +161,6 @@
 				ADD45FF25DF40E98C44F323A /* Pods-RunnerTests.release.xcconfig */,
 				1AE1013A4F04B9738B3F4A0F /* Pods-RunnerTests.profile.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
