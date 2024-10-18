@@ -74,6 +74,10 @@ enum SNSType {
   line(
     title: 'LINE',
     url: 'https://line.me/R/share?text=https%3A%2F%2Fwww.google.com',
+  ),
+  sms(
+    title: 'SMS',
+    url: 'sms:?body=https%3A%2F%2Fwww.google.com',
   );
 
   final String title;
