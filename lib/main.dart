@@ -55,13 +55,42 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
+enum SNSType {
+  twitter(
+    title: 'Twitter',
+    url:
+        'https://twitter.com/share?text=This+is+google+a+search+engine&url=https%3A%2F%2Fwww.google.com',
+  ),
+  facebook(
+    title: 'Facebook',
+    // TODO: Only this open in browser
+    url: 'https://www.facebook.com/sharer.php?u=https%3A%2F%2Fwww.google.com',
+  ),
+  pinterest(
+    title: 'Pinterest',
+    url:
+        'https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.google.com',
+  ),
+  line(
+    title: 'LINE',
+    url: 'https://line.me/R/share?text=https%3A%2F%2Fwww.google.com',
+  );
+
+  final String title;
+  final String url;
+
+  const SNSType({
+    required this.title,
+    required this.url,
+  });
+}
+
 class _MyHomePageState extends State<MyHomePage> {
-  void _shareOnTwitter() async {
-    final url = Uri.parse(
-        "https://twitter.com/share?text=This+is+google+a+search+engine&url=https%3A%2F%2Fwww.google.com");
+  void _share({required SNSType type}) async {
+    final url = Uri.parse(type.url);
     final canOpen = await canLaunchUrl(url);
     if (!canOpen) {
-      debugPrint("Twitter is not installed");
+      debugPrint("${type.title} is not installed");
       return;
     }
 
@@ -105,11 +134,12 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
-                onPressed: () {
-                  _shareOnTwitter();
-                },
-                child: const Text('Share on Twitter')),
+            ...SNSType.values.map((type) => ElevatedButton(
+                  onPressed: () {
+                    _share(type: type);
+                  },
+                  child: Text('Share on ${type.title}'),
+                )),
           ],
         ),
       ),
